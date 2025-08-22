@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toko Sparepart Mobil</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+    }
+
+    header {
+      background: #000;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    header h1 {
+      color: #ff6600;
+      margin: 0;
+    }
+
+    .car-container {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      margin: 30px auto;
+    }
+    .car-container img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    /* Titik Produk */
+    .hotspot {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: #ff6600;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #fff;
+      transform: translate(-50%, -50%);
+    }
+    .hotspot:hover {
+      background: #e63946;
+    }
+
+    /* Popup Produk */
+    .popup {
+      display: none;
+      position: absolute;
+      background: #222;
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      width: 200px;
+      text-align: left;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      z-index: 10;
+    }
+    .popup img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    .popup h3 {
+      margin: 10px 0 5px;
+      font-size: 16px;
+    }
+    .popup .harga {
+      color: #ff6600;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    .popup a {
+      display: inline-block;
+      padding: 6px 12px;
+      background: #ff6600;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Katalog Sparepart Mobil</h1>
+  </header>
+
+  <div class="car-container">
+    <!-- Ganti link gambar mobil dengan gambar sesuai kebutuhan -->
+    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" alt="Mobil">
+
+    <!-- Titik Produk -->
+    <div class="hotspot" style="top:40%; left:30%;" onclick="showPopup(event, 'popup1')"></div>
+    <div class="hotspot" style="top:60%; left:70%;" onclick="showPopup(event, 'popup2')"></div>
+
+    <!-- Popup Produk 1 -->
+    <div class="popup" id="popup1">
+      <img src="https://via.placeholder.com/200" alt="Produk 1">
+      <h3>Velg Racing</h3>
+      <div class="harga">Rp 3.500.000</div>
+      <p>Velg racing kualitas premium untuk mobil sport.</p>
+      <a href="https://shopee.co.id" target="_blank">Beli di Shopee</a>
+    </div>
+
+    <!-- Popup Produk 2 -->
+    <div class="popup" id="popup2">
+      <img src="https://via.placeholder.com/200" alt="Produk 2">
+      <h3>Ban Mobil</h3>
+      <div class="harga">Rp 1.200.000</div>
+      <p>Ban mobil anti slip dengan daya cengkeram kuat.</p>
+      <a href="https://shopee.co.id" target="_blank">Beli di Shopee</a>
+    </div>
+
+  </div>
+
+  <script>
+    function showPopup(event, id) {
+      // Tutup popup lain
+      document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
+
+      // Ambil popup sesuai id
+      const popup = document.getElementById(id);
+      popup.style.display = 'block';
+
+      // Posisi popup sesuai klik hotspot
+      const rect = event.target.getBoundingClientRect();
+      popup.style.top = (event.target.offsetTop + 30) + 'px';
+      popup.style.left = (event.target.offsetLeft + 30) + 'px';
+    }
+
+    // Klik di luar popup -> sembunyikan
+    document.addEventListener('click', function(e){
+      if (!e.target.classList.contains('hotspot')) {
+        document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
+      }
+    });
+  </script>
+
+</body>
+</html>
