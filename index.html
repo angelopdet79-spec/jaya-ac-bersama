@@ -3,146 +3,183 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Toko Sparepart Mobil</title>
+  <title>Katalog Produk</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-      text-align: center;
+      background: #f4f4f9;
+      color: #333;
     }
-
     header {
-      background: #000;
-      padding: 15px 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    header h1 {
-      color: #ff6600;
-      margin: 0;
-    }
-
-    .car-container {
-      position: relative;
-      width: 100%;
-      max-width: 1000px;
-      margin: 30px auto;
-    }
-    .car-container img {
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    /* Titik Produk */
-    .hotspot {
-      position: absolute;
-      width: 25px;
-      height: 25px;
-      background: #ff6600;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid #fff;
-      transform: translate(-50%, -50%);
-    }
-    .hotspot:hover {
-      background: #e63946;
-    }
-
-    /* Popup Produk */
-    .popup {
-      display: none;
-      position: absolute;
       background: #222;
       color: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      width: 200px;
-      text-align: left;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      z-index: 10;
-    }
-    .popup img {
-      width: 100%;
-      border-radius: 5px;
-    }
-    .popup h3 {
-      margin: 10px 0 5px;
-      font-size: 16px;
-    }
-    .popup .harga {
-      color: #ff6600;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
       font-weight: bold;
-      margin: 5px 0;
     }
-    .popup a {
+    .produk-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+    .produk {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .produk:hover {
+      transform: scale(1.03);
+    }
+    .produk img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .produk h3 {
+      margin: 12px 0 6px;
+      font-size: 18px;
+    }
+    .produk .harga {
+      font-size: 16px;
+      color: #e63946;
+      font-weight: bold;
+      margin: 6px 0;
+    }
+    /* Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .popup-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+    }
+    .popup-content img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .popup-content h3 {
+      margin-top: 15px;
+      font-size: 20px;
+    }
+    .popup-content .harga {
+      font-size: 18px;
+      color: #e63946;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .popup-content p {
+      font-size: 14px;
+      margin: 8px 0;
+    }
+    .popup-content a {
       display: inline-block;
-      padding: 6px 12px;
+      margin-top: 12px;
+      padding: 10px 18px;
       background: #ff6600;
       color: white;
       text-decoration: none;
       border-radius: 5px;
-      margin-top: 8px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #333;
     }
   </style>
 </head>
 <body>
 
+  <!-- Header -->
   <header>
-    <h1>Katalog Sparepart Mobil</h1>
+    Katalog Produk Toko Saya
   </header>
 
-  <div class="car-container">
-    <!-- Ganti link gambar mobil dengan gambar sesuai kebutuhan -->
-    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" alt="Mobil">
-
-    <!-- Titik Produk -->
-    <div class="hotspot" style="top:40%; left:30%;" onclick="showPopup(event, 'popup1')"></div>
-    <div class="hotspot" style="top:60%; left:70%;" onclick="showPopup(event, 'popup2')"></div>
-
-    <!-- Popup Produk 1 -->
-    <div class="popup" id="popup1">
-      <img src="https://via.placeholder.com/200" alt="Produk 1">
-      <h3>Velg Racing</h3>
-      <div class="harga">Rp 3.500.000</div>
-      <p>Velg racing kualitas premium untuk mobil sport.</p>
-      <a href="https://shopee.co.id" target="_blank">Beli di Shopee</a>
+  <!-- Produk -->
+  <section class="produk-container">
+    <div class="produk" onclick="openPopup('popup1')">
+      <img src="https://via.placeholder.com/250" alt="Produk 1">
+      <h3>Produk 1</h3>
+      <div class="harga">Rp 50.000</div>
     </div>
-
-    <!-- Popup Produk 2 -->
-    <div class="popup" id="popup2">
-      <img src="https://via.placeholder.com/200" alt="Produk 2">
-      <h3>Ban Mobil</h3>
-      <div class="harga">Rp 1.200.000</div>
-      <p>Ban mobil anti slip dengan daya cengkeram kuat.</p>
-      <a href="https://shopee.co.id" target="_blank">Beli di Shopee</a>
+    <div class="produk" onclick="openPopup('popup2')">
+      <img src="https://via.placeholder.com/250" alt="Produk 2">
+      <h3>Produk 2</h3>
+      <div class="harga">Rp 75.000</div>
     </div>
+    <div class="produk" onclick="openPopup('popup3')">
+      <img src="https://via.placeholder.com/250" alt="Produk 3">
+      <h3>Produk 3</h3>
+      <div class="harga">Rp 120.000</div>
+    </div>
+  </section>
 
+  <!-- Popup Detail Produk -->
+  <div class="popup" id="popup1">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup('popup1')">&times;</span>
+      <img src="https://via.placeholder.com/300" alt="Produk 1">
+      <h3>Produk 1</h3>
+      <div class="harga">Rp 50.000</div>
+      <p>Deskripsi singkat produk 1. Bahan berkualitas tinggi dan awet.</p>
+      <a href="https://shopee.co.id" target="_blank">Beli di Shopee</a>
+      <p>Alamat Toko: Jl. Contoh No. 123, Jakarta</p>
+    </div>
+  </div>
+
+  <div class="popup" id="popup2">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup('popup2')">&times;</span>
+      <img src="https://via.placeholder.com/300" alt="Produk 2">
+      <h3>Produk 2</h3>
+      <div class="harga">Rp 75.000</div>
+      <p>Produk 2 cocok untuk hadiah dan keperluan sehari-hari.</p>
+      <a href="https://shopee.co.id" target="_blank">Beli di Shopee</a>
+      <p>Alamat Toko: Jl. Raya Bandung No. 45</p>
+    </div>
+  </div>
+
+  <div class="popup" id="popup3">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup('popup3')">&times;</span>
+      <img src="https://via.placeholder.com/300" alt="Produk 3">
+      <h3>Produk 3</h3>
+      <div class="harga">Rp 120.000</div>
+      <p>Produk 3 dengan desain modern, nyaman, dan berkualitas.</p>
+      <a href="https://shopee.co.id" target="_blank">Beli di Shopee</a>
+      <p>Alamat Toko: Jl. Sudirman No. 89</p>
+    </div>
   </div>
 
   <script>
-    function showPopup(event, id) {
-      // Tutup popup lain
-      document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
-
-      // Ambil popup sesuai id
-      const popup = document.getElementById(id);
-      popup.style.display = 'block';
-
-      // Posisi popup sesuai klik hotspot
-      const rect = event.target.getBoundingClientRect();
-      popup.style.top = (event.target.offsetTop + 30) + 'px';
-      popup.style.left = (event.target.offsetLeft + 30) + 'px';
+    function openPopup(id) {
+      document.getElementById(id).style.display = "flex";
     }
-
-    // Klik di luar popup -> sembunyikan
-    document.addEventListener('click', function(e){
-      if (!e.target.classList.contains('hotspot')) {
-        document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
-      }
-    });
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
   </script>
 
 </body>
